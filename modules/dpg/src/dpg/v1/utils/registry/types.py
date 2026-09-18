@@ -13,12 +13,14 @@ class RegistryType(Enum):
 class MavenConfig(BaseModel):
     targetRelease : str
     targetStaging : str
-    targetSnapshot : str 
+    targetSnapshot : str
 
 class AuthRegistry(BaseModel):
     pass
 
 class AuthSTSSecret(AuthRegistry):
+    package_format: str = "maven"
+    auth_type: str = "DIRECT"
     access_key: str
     secret_key: str
     domain: str = ""
@@ -26,6 +28,7 @@ class AuthSTSSecret(AuthRegistry):
     repository: str = ""
 
 class AuthSTSAssumeRole(AuthRegistry):
+    package_format: str = "maven"
     access_key: str
     secret_key: str
     domain: str = ""
@@ -36,6 +39,7 @@ class AuthSTSAssumeRole(AuthRegistry):
     session_prefix: str = ""
 
 class AuthGCPFederation(AuthRegistry):
+    package_format: str = "maven"
     project: str = ""  # PUB_REG_PROJECT (project number)
     region_name: str = ""
     repository: str = ""
@@ -52,20 +56,24 @@ class AuthGCPFederation(AuthRegistry):
     oidc_custom_params: str = ""  # PUB_REG_OIDC_CUSTOM_PARAM
 
 class AuthGCPServiceAccount(AuthRegistry):
+    package_format: str = "maven"
     service_account_key_content: str = ""
     project: str = ""
     region_name: str = ""
     repository: str = ""
 
 class AuthAzureOAuth2(AuthRegistry):
+    package_format: str = "maven"
     client_id: str
     client_secret: str
 
 class AuthManageIdentity(AuthRegistry):
+    package_format: str = "maven"
     client_id: str
     client_secret: str
 
 class AuthUserPassword(AuthRegistry):
+    package_format: str = "maven"
     registry_url: str
     username: str
     password: str
